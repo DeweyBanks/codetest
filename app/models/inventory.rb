@@ -2,6 +2,10 @@ class Inventory < ActiveRecord::Base
   belongs_to :warehouse, :inverse_of => :inventory
   has_many :products
 
+  validates :warehouse, presence: {
+    message: 'A warehouse must be assigned to the inventory'
+  }
+
   rails_admin do
     object_label_method :label
   end
