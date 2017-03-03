@@ -1,7 +1,7 @@
 This is my solution to the problem.  I would love any feedback you have. Please leave your feedback by creating an issue for this repo.
 
 
-
+*************
 
 
 Stock Tracker is used for creating and keeping track of inventory.
