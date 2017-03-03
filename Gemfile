@@ -40,6 +40,8 @@ group :development, :test do
 end
 
 group :test do
+  gem 'shoulda'
+  gem 'shoulda-context'
   gem 'shoulda-callback-matchers', '~> 1.1.1'
   gem 'database_cleaner'
 end

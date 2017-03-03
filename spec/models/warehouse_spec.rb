@@ -1,12 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe Warehouse, type: :model do
-  warehouse = Warehouse.find(3)
-  shipment = Shipment.create!(warehouse_id: warehouse.id)
-
-  it "has an array of shipments" do
-    expect(warehouse.shipments).to exist
+  before(:each) do
+    @warehouse = FactoryGirl.build(:warehouse)
   end
 
+  it "should have many shipments" do
+    should have_many(:shipments)
+  end
+
+  it "should have an inventory" do
+    should have_one(:inventory)
+  end
+
+  it "should have many products" do
+    should have_many(:products)
+  end
 
 end

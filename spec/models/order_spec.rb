@@ -1,15 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
-  it "assigns a shipment to a warehouse when created" do
-    @product = Product.find_by(name: 'phone')
-    @order = Order.new
-    @order.products << @product
-    @order.save!
 
-    shipment = @product.inventory.warehouse.shipments.where(order_id: @order.id).first
+  it "should have many products" do
+    should have_many(:products)
+  end
 
-    expect(shipment.warehouse.name).to eq("CHICAGO")
+  it "should have many shipments" do
+    should have_many(:shipments)
   end
 
   it { is_expected.to callback(:create_shipment).after(:create) }
