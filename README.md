@@ -24,3 +24,6 @@ so that a shipment that contains product X gets assigned to ship out of a wareho
 that has inventory of product X rather than another warehouse that does not have any X.
 
 
+*************
+
+To see my solution checkout out the "Solution" branch
