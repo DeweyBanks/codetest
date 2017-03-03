@@ -37,7 +37,7 @@ RailsAdmin.config do |config|
   config.model 'Order' do
     list do
       field :number
-      field :shipment
+      field :shipments
       field :products
     end
     edit do

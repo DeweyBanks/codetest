@@ -1,6 +1,6 @@
 class Order < ActiveRecord::Base
-  belongs_to :shipment
   has_many :products
+  has_many :shipments
 
   after_create :create_shipment
   after_create :assign_number
@@ -15,35 +15,17 @@ class Order < ActiveRecord::Base
     self.save!
   end
 
-  def shipment
-    shipment = Shipment.find_by(order_id: self.id)
-    if shipment.present?
-      shipment.number
-    else
-    end
-  end
 
   def create_shipment
-    # TODO
-    # create multiple shipments if order has products located in different warehouses
-    shipment = Shipment.new
-
-    # grab the first product from the order.
-    order_product = self.products.first
-
-    warehouses = Warehouse.all
-    warehouses.each do |warehouse|
-      if
-        # search the inventory of each warehouse to see if it includes the order_product, if it does, assign the shipment to that warehouse
-        warehouse.products.include?(order_product)
-        shipment.warehouse_id = warehouse.id
+    products.each do |product|
+      shipment = Shipment.new(warehouse_id: product.inventory.warehouse.id, order_id: self.id)
+      current_order_shipment = Shipment.find_by(order_id: shipment.order_id)
+      current_warehouse_shipment =Shipment.find_by(warehouse_id: shipment.warehouse_id)
+      if current_order_shipment && current_warehouse_shipment
       else
-        # if the product isn't found in any warehouse, respond with a message saying so
-        puts "#{order_product.name} not found in #{warehouse.name}."
+        shipment.save
       end
     end
-    shipment.order_id = self.id
-    shipment.save!
   end
 
 end
